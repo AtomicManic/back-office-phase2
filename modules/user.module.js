@@ -8,6 +8,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -22,12 +23,14 @@ const userSchema = new Schema({
     required: true,
   },
   birthday: {
-    type: Date,
+    type: String,
     required: true,
   },
   vacation_days: {
     type: Number,
+    required: true,
   },
 });
 
-export default model("User", userSchema);
+const userModel = model("User", userSchema);
+module.exports = userModel;
