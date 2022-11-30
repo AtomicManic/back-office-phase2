@@ -16,7 +16,10 @@ exports.register = async (req, res) => {
 
     const user = { ...req.body, password: hashedPassword };
 
-    const addedUser = addNewUser(user);
+    const addedUser = await addNewUser(user);
+
+    req.session.userId = addedUser._id;
+    req.session.userRole = addedUser.role;
 
     return res.status(201).json({
       message: "user added successfully!",
