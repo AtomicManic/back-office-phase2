@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db.connection");
 const session = require("express-session");
+const { sessionConfig } = require("./middleware/session.mw");
 const router = require("express").Router();
 const authRoutes = require("./routes/auth.routes");
 
@@ -17,7 +18,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session);
+app.use(session(sessionConfig));
 
 app.use(cors());
 

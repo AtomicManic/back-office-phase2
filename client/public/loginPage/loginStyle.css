@@ -3,17 +3,62 @@
   padding: 0;
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .mainContainer {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+}
+
+.formContainer {
+  margin-top: 100px;
+  width: 400px;
+  height: 220px;
+  background-color: #e8eddf;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.formContainer h2 {
+  text-align: center;
+  align-self: center;
+  margin-bottom: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+}
+
+input {
+  width: 200px;
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+label {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 150px;
+  height: 30px;
+  margin-top: 20px;
+  align-self: center;
+  border: none;
+  border-radius: 20px;
+  background-color: #f5cb5c;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f2ba21;
 }
