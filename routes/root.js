@@ -12,5 +12,8 @@ router.get("^/$|employee(.html)?", (req, res) => {
   findEmployeeById(req, res);
 });
 
+router.put("^/$|employee(.html)?", (req, res) => {
+  editEmployeesInfo(req, res);
+});
 
 module.exports = router;
