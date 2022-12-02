@@ -1,7 +1,7 @@
 
 const { vacationsService } = require("../DAL/vacation.DAL");
 const { usersService } = require("../DAL/users.DAL");
-const { validateVacationDays } = require("../module/vacation.module");
+const  { vacationModule } = require("../module/vacation.module");
 
 exports.vacationsController = {
 
@@ -32,11 +32,13 @@ exports.vacationsController = {
 
     createNewVacation(req,res) {
 
+        //const role = req.session.role; -->  get role of the request sender
        const employeeId = req.params.id;
        const vacationDetails = req.body;
+       console.log(vacationDetails);
        const status = "approved";
 
-       const employee = usersService.getUserDetails(employeeId);
+       const employee = usersService.getUserDetails(employeeId);  //by using session --> this line can be deleted
        const vacations = vacationsService.getVacations();
 
        if(employee.role === 'manager') {
@@ -44,8 +46,8 @@ exports.vacationsController = {
         console.log("manager approval! --> vacation status: approved!")
            //user's role == employee
     } else {
-           //function validateVacationDays(start_date, end_date , user , vacations)
-           validateVacationDays(vacationDetails.start_date , vacationDetails.end_date ,employee , vacations);
+           //console.log(vacationDetails.start_date , vacationDetails.end_date , employee ,vacations );
+           //vacationModule.validateVacationDays(vacationDetails.start_date , vacationDetails.end_date ,employee , vacations);
        }
     }
 }

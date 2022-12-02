@@ -20,7 +20,7 @@ vacationsRouter.get('users/:userId' , vacationsController.getAllEmployeeVacation
 //localhost:4000/api/vacations/vacationId
 vacationsRouter.put('/:vacationId' , vacationsController.UpdateVacationStatus);
 
-vacationsRouter.post('/:id' , vacationsController.createNewVacation);
+vacationsRouter.post('/:id' , vacationsController.createNewVacation); //by using session req.params can be deleted.
 
 //localhost:8081/api/users
 //vacationsRouter.delete('/:email/:start_data', vacationsController.deleteVacation);

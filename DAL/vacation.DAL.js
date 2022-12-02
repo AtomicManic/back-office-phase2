@@ -49,6 +49,7 @@ exports.vacationsService = {
     },
 
     createNewVacation(vacationDetails , status ) {
+
         //this part here add the new vacation(that already approved to the vacations DB)
         const { employee_id,start_date,end_date } = vacationDetails;
         const validatedStatus = status;
