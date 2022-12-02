@@ -8,6 +8,7 @@ const session = require("express-session");
 const { sessionConfig } = require("./middleware/session.mw");
 const router = require("express").Router();
 const authRoutes = require("./routes/auth.routes");
+const UiRoutes = require("./routes/ui.routes");
 
 // Configurations //
 const PORT = process.env.PORT || 4000;
@@ -25,6 +26,7 @@ app.use(cors());
 // Routes //
 app.use("/", express.static(path.join(__dirname, "/client/public")));
 app.use("/", require("./routes/root"));
+app.use("/public", UiRoutes);
 app.use("/api/auth", authRoutes);
 
 // Connections //

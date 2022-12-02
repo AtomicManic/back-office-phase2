@@ -10,15 +10,26 @@ loginForm.addEventListener("submit", async (e) => {
   };
   try {
     if (userInfo.email !== null || userInfo.password !== null) {
-      console.log("here");
       const data = await login(userInfo);
       if (data.isLoggedIn) {
-        // check role and serve correct dashboard
+        if (data.role === "manager") {
+          window.location.replace("http://localhost:4000/public/dashboard");
+        }
+        if (data.role === "employee") {
+          console.log("Inside employee dashboard");
+        }
       } else {
-        // open error element
+        errorMsg.style.display = "block";
       }
     }
   } catch (error) {}
+});
+
+emailInpt.addEventListener("focus", () => {
+  errorMsg.style.display = "none";
+});
+passwordInpt.addEventListener("focus", () => {
+  errorMsg.style.display = "none";
 });
 
 const login = async (userInfo) => {

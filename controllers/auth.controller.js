@@ -23,9 +23,6 @@ exports.register = async (req, res) => {
 
     const addedUser = await addNewUser(user);
 
-    req.session.userId = addedUser._id;
-    req.session.userRole = addedUser.role;
-
     return res.status(201).json({
       message: "user added successfully!",
       user: _.omit((await addedUser).toObject(), dbSecretFields),
@@ -37,7 +34,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const validationResult = registerValidator(req.body);
+    const validationResult = loginValidator(req.body);
     if (!validationResult) {
       return res
         .status(400)
@@ -58,7 +55,7 @@ exports.login = async (req, res) => {
     );
 
     if (!isPasswordCorrect) {
-      res
+      return res
         .status(401)
         .json({ isLoggedIn: false, message: "wrong username or password2" });
     }
@@ -66,15 +63,21 @@ exports.login = async (req, res) => {
     req.session.userId = user._id;
     req.session.role = user.role;
 
-    res.status(200).json({ isLoggedIn: true, message: "You are logged in!" });
+    res.status(200).json({
+      isLoggedIn: true,
+      message: "You are logged in!",
+      role: user.role,
+    });
   } catch (error) {
     res.status(401).json({ isLoggedIn: false, message: error.message });
   }
 };
 
 exports.logout = (req, res) => {
+  res.clearCookie(process.env.SESSION_NAME);
   delete req.session.userId;
   delete req.session.role;
+  req.session.destroy();
   res.json({ message: "You logged out" });
 };
 
