@@ -51,8 +51,10 @@
     <h2>Request Vacation</h2>
     <div>
       <form id="vacationRequestForm" method="post">
-        <label for="vacationRequest">email:</label>
-        <input type="date" name="requestVacation" id="vacationRequest" />
+        <label for="vacationRequestFrom">from:</label>
+        <input type="date" name="requestVacationStart" id="vacationRequestFrom" required />
+        <label for="vacationRequestTo">to:</label>
+        <input type="date" name="requestVacationEnd" id="vacationRequestTo" required />
         <button type="submit" id="vacationRequestBtn">Send</button>
       </form>
     </div>

@@ -24,7 +24,7 @@ const setHomeAddress = (id, home_address) => {
 };
 
 // add check if there is active request
-const setVacationRequest = (id) => {
+const setVacationRequest = (id, startDate, finishDate) => {
     if(id == null)
         return 'Missing id';
     let users = getAllUsers();

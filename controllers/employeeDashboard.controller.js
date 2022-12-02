@@ -43,10 +43,10 @@ homeAddress = (req, res) => {
 };
 
 askVacation = (req, res) => {
-    console.log(req.query.id);
+    console.log(req.query.id, req.query.vacation_start_date, req.query.vacation_finish_date);
     if(!req.query.id)
         return invalidId(req, res);
-    const data = setVacationRequest(req.query.id);
+    const data = setVacationRequest(req.query.id, req.query.vacation_start_date, req.query.vacation_finish_date);
     res.set('Content-Type', 'application/json');
     res.writeHeader(200);
     res.end(JSON.stringify(data));

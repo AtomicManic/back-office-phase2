@@ -11,7 +11,6 @@ router.get("^/$|index(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-// second page
 router.get("/api/employeeInfo", (req, res) => {
   employeeInfo(req, res);
 });
