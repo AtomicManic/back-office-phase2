@@ -6,8 +6,7 @@ exports.bulkController = {
 
     importCsv(req, res) {
 
-        const csvFileName = req.body.filename;                  //get file name from req.body
-        console.log(csvFileName);
+        const csvFileName = req.query.filename;                  //get file
 
         CSVtoJSON({
             colParser: {                                         //change type from string to number
@@ -19,11 +18,11 @@ exports.bulkController = {
                 }
             }
         })
-            .fromFile(`./data/${csvFileName}`)                      //from csvfile (name from req.body)
+            .fromFile(`./data/${csvFileName}`)                      //from csv file
             .then(csvUsers => {
                 const result = (usersService.addUsers(csvUsers));
                 if (result.message === 'success!') {
-                    res.json({message: "all done! uses from csv imported to json file"});
+                    res.json({message: "all done! users from csv imported to json file"});
                 } else {
                     res.json({message: "something went wrong.."});
                 }

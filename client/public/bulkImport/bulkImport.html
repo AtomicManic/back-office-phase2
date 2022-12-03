@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="bulkImport.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <title>Back Office</title>
+</head>
+<body>
+<h1>Vacation Manager</h1>
+<div class="container">
+    <h2>Bulk Import</h2>
+    <p id="errMsg">try again</p>
+    <p id="validMsg">file uploaded successfully!</p>
+    <form id="uploadFileForm" enctype="multipart/form-data" method="post">
+        <input id="fileInput" type="file" name="myFile" accept=".csv"/>
+        <button type="submit" id="uploadButton">Upload</button>
+    </form>
+</div>
+<script src="bulkImportScrips.js"></script>
+</body>
+</html>
