@@ -42,7 +42,7 @@ exports.vacationsController = {
 
         if (employee.role === 'manager') {
             res.json(vacationsService.createNewVacation(vacationDetails, status));
-            console.log("manager approval! --> vacation status: approved!");
+            console.log("manager -- vacation status: approved -- new vacation created");
 
             //user's role == employee
         } else {

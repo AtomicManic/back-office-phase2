@@ -22,6 +22,7 @@
 
          for (const key in vacations.vacations) {                                            //loop through vacations
 
+             //const filtered = vacation.vacations.filter(vacation => vacation.status == "approved");
              let start = new Date(vacations.vacations[key].start_date);
              let end = new Date(vacations.vacations[key].end_date);
 
@@ -41,7 +42,7 @@
         const response = await fetch
         ('https://calendarific.com/api/v2/holidays?&api_key=a1e18904d65721020f4325e8fd7fd1197b56dde4&country=IL&year=2022')
         const data = await response.json();
-        //console.log(JSON.stringify(data , null , 2));
+
             for (const i in data.response.holidays) {
                 let holiday = new Date(data.response.holidays[i].date.iso);
 

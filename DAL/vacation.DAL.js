@@ -14,6 +14,13 @@ const vacations = {
             "start_date" :"07/04/2022",
             "end_date": "07/09/2022",
             "status": "approved"
+        },
+        {
+            "id": 3,
+            "employee_id": 208922345,
+            "start_date" :"08/04/2022",
+            "end_date": "08/09/2022",
+            "status": "approved"
         }
     ]
 }
@@ -33,7 +40,7 @@ exports.vacationsService = {
 
     getAllEmployeeVacations(employeeId) {
 
-        const result = vacations.vacations.find((vacation) => vacation.employee_id === parseInt(employeeId));
+        const result = vacations.vacations.filter((vacation) => vacation.employee_id === parseInt(employeeId));
         console.log(result);
         return result;
     },
