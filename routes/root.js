@@ -8,12 +8,22 @@ router.get("^/$|index(.html)?", (req, res) => {
 });
 
 // second page
-router.get("^/$|employee(.html)?", (req, res) => {
+router.get("^/$|manager(.html)?", (req, res) => {
   findEmployeeById(req, res);
 });
 
-router.put("^/$|employee(.html)?", (req, res) => {
+router.put("^/$|manager(.html)?", (req, res) => {
   editEmployeesInfo(req, res);
 });
+
+
+router.post("^/$|manager(.html)?", (req, res) => {
+  addEmployee(req, res);
+});
+
+router.delete("^/$|manager(.html)?", (req, res) => {
+  deleteUser(req, res);
+});
+
 
 module.exports = router;

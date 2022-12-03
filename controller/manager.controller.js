@@ -4,8 +4,11 @@ errorHandler = (req, res) => {
     res.write('Bad request');
     res.end();
 };
-let counter = 4;
+let id = 4;
 let user = { 1: { name: "Gilad", email: "Gilad@gmail.com" }, 2: { name: "Adva", email: "Adva@gmail.com" }, 3: { name: "Ofir", email: "Ofir@gmail.com" }, 4: { name: "Dave", email: "Dave@gmail.com" } };
+
+
+
 
 // get all employees -- need to move ot DAL
 getAllEmployees = () => {
@@ -43,6 +46,7 @@ findEmployeeById = (req, res) => {
 
 };
 
+// need function in dal to edit
 editEmployeesInfo = (req, res) => {
     if (!req.body.id || !req.body.key || !req.body.value) {
         return errorHandler(req, res);
@@ -57,18 +61,37 @@ editEmployeesInfo = (req, res) => {
 };
 
 
-// not finished
+// need function in dal to add
 addEmployee = (req, res) => {
-    counter++;
-
-    if (!req.body.id || !req.body.name || !req.body.email) {
+    if (!req.body.name || !req.body.email) {
         return errorHandler(req, res);
     }
-    const newuser = {
-        id:     counter,
-        name:   req.body.name,
-        email:  req.body.email,
+    const newUser = {
+        name: req.body.name,
+        email: req.body.email,
     };
+
+    user[++id] = newUser;
+    res.writeHeader(200);
+    res.end(JSON.stringify({}));
+
+};
+
+
+
+// need function in dal to delete
+deleteUser = (req, res) => {
+
+    if (!req.body.id) {
+        return errorHandler(req, res);
+    }
+
+    if (!req.body.id in user) {
+        return errorHandler(req, res);
+    }
+    delete user[req.body.id];
+    res.writeHeader(200);
+    res.end(JSON.stringify({}));
 
 };
 
@@ -78,5 +101,7 @@ addEmployee = (req, res) => {
 module.exports = {
     errorHandler: errorHandler,
     findEmployeeById: findEmployeeById,
-    editEmployeesInfo: editEmployeesInfo
+    editEmployeesInfo: editEmployeesInfo,
+    addEmployee: addEmployee, 
+    deleteUser: deleteUser
 };
