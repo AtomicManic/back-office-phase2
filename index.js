@@ -3,20 +3,34 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const connectDB = require("./config/db.connection");
+const authRoutes = require("./routes/auth.routes");
+const uiRoutes = require("./routes/ui.routes");
+const cookieParser = require("cookie-parser");
 
 // Configurations //
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-app.use(cors());
-
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
+app.use(cors());
+
 // Routes //
-app.use("/", express.static(path.join(__dirname, "client/public")));
-
+app.use("/", express.static(path.join(__dirname, "/client/public")));
 app.use("/", require("./routes/root"));
+app.use("/public", uiRoutes);
+app.use("/api/auth", authRoutes);
 
-// Connection //
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Connections //
+connectDB();
+
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});

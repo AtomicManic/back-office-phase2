@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.mainContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+.formContainer {
+  margin-top: 100px;
+  width: 400px;
+  height: 270px;
+  background-color: #e8eddf;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.formContainer h2 {
+  text-align: center;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input {
+  width: 200px;
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+label {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 150px;
+  height: 30px;
+  margin-top: 20px;
+  align-self: center;
+  border: none;
+  border-radius: 20px;
+  background-color: #f5cb5c;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f2ba21;
+}
+
+#errorMsg {
+  width: 200px;
+  height: 30px;
+  background-color: #ff9494;
+  border-radius: 20px;
+  border: 1px solid red;
+  align-self: center;
+  text-align: center;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  display: none;
+}
