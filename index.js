@@ -4,9 +4,6 @@ const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db.connection");
-const session = require("express-session");
-const { sessionConfig } = require("./middleware/session.mw");
-const router = require("express").Router();
 const authRoutes = require("./routes/auth.routes");
 const uiRoutes = require("./routes/ui.routes");
 const cookieParser = require("cookie-parser");
@@ -21,8 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-
-// app.use(session(sessionConfig));
 
 app.use(cors());
 

@@ -1,7 +1,6 @@
-const User = require("./../modules/user.module");
 const registerValidator = require("./../validators/register.validator");
 const loginValidator = require("./../validators/login.validator");
-const UserObj = require("./../classes/User");
+const User = require("./../classes/User");
 const jwt = require("jsonwebtoken");
 const {
   addNewUser,
@@ -62,7 +61,7 @@ exports.login = async (req, res) => {
         .json({ isLoggedIn: false, message: "wrong username or password2" });
     }
 
-    const userObj = new UserObj(user.id, user.role);
+    const userObj = new User(user.id, user.role);
     const token = jwt.sign({ userObj }, process.env.TOKEN_SECRET, {
       expiresIn: "15m",
     });
