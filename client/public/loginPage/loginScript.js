@@ -16,7 +16,7 @@ loginForm.addEventListener("submit", async (e) => {
           window.location.replace("http://localhost:4000/public/dashboard");
         }
         if (data.role === "employee") {
-          console.log("Inside employee dashboard");
+          window.location.replace("http://localhost:4000/public/dashboard");
         }
       } else {
         errorMsg.style.display = "block";

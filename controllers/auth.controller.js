@@ -1,6 +1,8 @@
 const User = require("./../modules/user.module");
 const registerValidator = require("./../validators/register.validator");
 const loginValidator = require("./../validators/login.validator");
+const UserObj = require("./../classes/User");
+const jwt = require("jsonwebtoken");
 const {
   addNewUser,
   getUserByEmail,
@@ -60,13 +62,19 @@ exports.login = async (req, res) => {
         .json({ isLoggedIn: false, message: "wrong username or password2" });
     }
 
-    req.session.userId = user._id;
-    req.session.role = user.role;
+    const userObj = new UserObj(user.id, user.role);
+    const token = jwt.sign({ userObj }, process.env.TOKEN_SECRET, {
+      expiresIn: "15m",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+    });
 
     res.status(200).json({
       isLoggedIn: true,
-      message: "You are logged in!",
       role: user.role,
+      message: "You are logged in!",
     });
   } catch (error) {
     res.status(401).json({ isLoggedIn: false, message: error.message });
@@ -74,28 +82,16 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  res.clearCookie(process.env.SESSION_NAME);
-  delete req.session.userId;
-  delete req.session.role;
-  req.session.destroy();
-  res.json({ message: "You logged out" });
+  res.cookie("token", "", { maxAge: 1 });
+  res.end();
 };
 
 exports.loginRequired = async (req, res, next) => {
+  const token = req.cookies.token;
   try {
-    if (req.session === undefined || req.session.userId === undefined) {
-      return res
-        .status(403)
-        .json({ message: "You need to login to acces this route" });
-    }
-
-    const user = await getUserById(req, res);
-
-    if (user === null) {
-      return res.status(404).json({ messgae: "User doesn't exist" });
-    }
+    const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
     next();
   } catch (error) {
-    res.status(403).json({ message: error.message });
+    res.status(403).json({ message: "Unverified action" });
   }
 };
