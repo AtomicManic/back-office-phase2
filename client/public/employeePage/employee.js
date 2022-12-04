@@ -16,7 +16,7 @@ document.getElementById('vacationRequestTo').value = new Date().toDateInputValue
 const display = async() => {
     try
     {
-        const response = await fetch("http://localhost:4000/api/employeeInfo?id=1", {method: "GET"})
+        const response = await fetch("http://localhost:4000/api/user/employeeInfo?id=1", {method: "GET"})
         return response.json();
     }
     catch(error)
@@ -44,7 +44,7 @@ window.onload = async function employeeDisplay () {
 async function homeAddress(homeAddressVar) {
     try
     {
-        const response = await fetch(`http://localhost:4000/api/home_address?id=1&home_address=${homeAddressVar}`,{method:"put"})
+        const response = await fetch(`http://localhost:4000/api/user/home_address?id=1&home_address=${homeAddressVar}`,{method:"put"})
         return response.json();
     }
     catch(error)
@@ -68,7 +68,7 @@ addHomeAddressForm.addEventListener('submit',async() => {
 async function vacationRequest(vacationStartDate, vacationFinishDate) {
     try
     {
-        const response = await fetch(`http://localhost:4000/api/vacation_request?id=1&vacation_start_date=${vacationStartDate}&vacation_finish_date=${vacationFinishDate}`,{method:"post"})
+        const response = await fetch(`http://localhost:4000/api/user/vacation_request?id=1&vacation_start_date=${vacationStartDate}&vacation_finish_date=${vacationFinishDate}`,{method:"post"})
         return response.json();
     }
     catch(error)

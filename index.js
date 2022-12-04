@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
 
 // Configurations //
 const PORT = process.env.PORT || 4000;
@@ -16,7 +17,9 @@ app.use(express.json());
 // Routes //
 app.use("/", express.static(path.join(__dirname, "client/public")));
 
-app.use("/", require("./routes/root"));
+// app.use("/api", require("./routes/root"));
+
+app.use('/api/user', userRoutes);
 
 // Connection //
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
