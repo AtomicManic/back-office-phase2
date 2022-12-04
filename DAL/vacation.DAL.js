@@ -1,4 +1,6 @@
 
+const vacation = require("./../modules/vacation.module");
+
 const vacations = {
     "vacations": [
         {
@@ -25,40 +27,45 @@ const vacations = {
     ]
 }
 
-exports.vacationsService = {
+    const getVacations = () => {
 
-    getVacations() {
-        return vacations;
-        },
+    return vacations;
 
-    getVacationDetails(id) {
+}
+
+    const getVacation = (id) => {
 
         if(id == null) {
             return ({message: "invalid ID"});
         }
-        const result = vacations.vacations.find((vacation) => vacation.id === parseInt(id));
-        console.log(result);
-        return result;
-    },
 
-    getAllEmployeeVacations(employeeId) {
+        //const foundVacation = vacation.findOne({ id: id });
+        //return foundVacation;
+
+        /*
+
+        const result = vacations.vacations.find((vacation) => vacation.id === parseInt(id));
+        return result;
+
+         */
+    }
+
+    const getEmployeeVacations = (employeeId) => {
 
         if(employeeId == null) {
             return ({message: "invalid ID"});
         }
         const result = vacations.vacations.filter((vacation) => vacation.employee_id === parseInt(employeeId));
-        console.log(result);
+
         if(result === undefined) {
             return ({message: "No vacations listed from this employee!"});
         }
         return result;
-    },
+    }
 
-    UpdateVacationStatus(vacationId) {
+    const UpdateVacation = (vacationId) => {
 
-        console.log(vacationId);
-        const result = this.getVacationDetails(vacationId);
-        console.log(result);
+        const result = getVacation(vacationId);
         if(result === undefined) {
             return ({message: "vacation not found"});
         }
@@ -66,40 +73,50 @@ exports.vacationsService = {
             return ({ message: "changed to cancelled"})
         }
         else return ({message: "already cancelled!"})
-    },
+    }
 
-    createNewVacation(vacationDetails) {
+    const postVacation = (vacationDetails) => {
 
         if(vacationDetails == null) {
             return ({ message: "something went wrong.."})
         }
 
-        //this part here add the new vacation(that already approved to the vacations DB)
         const { employee_id,start_date,end_date } = vacationDetails;
 
-        let length = vacations.vacations.length;
-        console.log(`length of vacations array: ${length}`);
-
-        const newVacation = {
-            "id": ++length,
+        const newVacation = new vacation ({
             "employee_id": employee_id,
             "start_date": start_date,
             "end_date": end_date,
             "status": "approved"
+        });
+
+        const result = newVacation.save();
+
+        if (result) {
+            return ({
+                message: "success!"
+            })
         }
 
-        console.log(newVacation);
-        return ({
-            message: "success!",
+        else {
+            return ({
+                message: "error"
+            })
+        }
+    }
 
-        })
-    },
-/*
-    vacErrorHandler(req, res, head, message) {
-        res.writeHeader(head);
-        res.write(JSON.stringify(message));
+    const vacationErrorHandler = (req, res, head, message) => {
+        res.status(head);
+        res.json({message: message});
         res.end();
     }
 
- */
-}
+
+module.exports = {
+    getVacations,
+    getVacation,
+    getEmployeeVacations,
+    UpdateVacation,
+    postVacation,
+    vacationErrorHandler
+};
