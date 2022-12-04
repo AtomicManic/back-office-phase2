@@ -1,4 +1,5 @@
 
+//not complete - created for vacations purposes
 const users = {
     "users": [
         {
@@ -74,6 +75,7 @@ exports.usersService = {
     //for Bulk
      addUsers(csvUsers) {
         users.users.push(...csvUsers);
+        //add to db..
         console.log(JSON.stringify(users , null , 2));
         return ({
             message: "success!"

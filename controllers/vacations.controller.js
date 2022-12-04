@@ -34,24 +34,26 @@ exports.vacationsController = {
         const employeeId = req.params.id;
         const vacationDetails = req.body;
         console.log(vacationDetails);
-        const status = "approved";
 
         const employee = usersService.getUserDetails(employeeId);  //by using session --> this line can be deleted
         const vacations = vacationsService.getVacations();
         console.log(vacations);
 
         if (employee.role === 'manager') {
-            res.json(vacationsService.createNewVacation(vacationDetails, status));
+            res.json(vacationsService.createNewVacation(vacationDetails));
             console.log("manager -- vacation status: approved -- new vacation created");
 
             //user's role == employee
         } else {
             const answer = await validateVacationDays(vacationDetails.start_date, vacationDetails.end_date, employee, vacations);
+            const vacationLength = answer.vacationLength;
+            console.log(`total days of requested vacation: ${vacationLength}`);
             if (answer.message === 'decline') {
                 res.json(answer);
             }
             else {
-                res.json(vacationsService.createNewVacation(vacationDetails, status));
+                res.json(vacationsService.createNewVacation(vacationDetails));
+                //users DAL -- update number of vacation days left for user
             }
         }
     }

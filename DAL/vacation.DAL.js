@@ -33,6 +33,9 @@ exports.vacationsService = {
 
     getVacationDetails(id) {
 
+        if(id == null) {
+            return ({message: "invalid ID"});
+        }
         const result = vacations.vacations.find((vacation) => vacation.id === parseInt(id));
         console.log(result);
         return result;
@@ -40,41 +43,63 @@ exports.vacationsService = {
 
     getAllEmployeeVacations(employeeId) {
 
+        if(employeeId == null) {
+            return ({message: "invalid ID"});
+        }
         const result = vacations.vacations.filter((vacation) => vacation.employee_id === parseInt(employeeId));
         console.log(result);
+        if(result === undefined) {
+            return ({message: "No vacations listed from this employee!"});
+        }
         return result;
     },
 
     UpdateVacationStatus(vacationId) {
+
         console.log(vacationId);
         const result = this.getVacationDetails(vacationId);
         console.log(result);
+        if(result === undefined) {
+            return ({message: "vacation not found"});
+        }
         if(result.status === "approved") {
             return ({ message: "changed to cancelled"})
         }
         else return ({message: "already cancelled!"})
     },
 
-    createNewVacation(vacationDetails , status ) {
+    createNewVacation(vacationDetails) {
+
+        if(vacationDetails == null) {
+            return ({ message: "something went wrong.."})
+        }
 
         //this part here add the new vacation(that already approved to the vacations DB)
         const { employee_id,start_date,end_date } = vacationDetails;
-        const validatedStatus = status;
 
         let length = vacations.vacations.length;
-        console.log(length);
+        console.log(`length of vacations array: ${length}`);
 
-        const newVacation= {
+        const newVacation = {
             "id": ++length,
             "employee_id": employee_id,
             "start_date": start_date,
             "end_date": end_date,
-            "status": `${validatedStatus}`
+            "status": "approved"
         }
 
         console.log(newVacation);
         return ({
-            message: "success!"
+            message: "success!",
+
         })
+    },
+/*
+    vacErrorHandler(req, res, head, message) {
+        res.writeHeader(head);
+        res.write(JSON.stringify(message));
+        res.end();
     }
+
+ */
 }

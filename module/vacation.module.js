@@ -26,7 +26,7 @@
              let start = new Date(vacations.vacations[key].start_date);
              let end = new Date(vacations.vacations[key].end_date);
 
-             if (start.getMonth() == startDateCheck.getMonth() && start.getFullYear() == startDateCheck.getFullYear()) {
+             if (start.getMonth() === startDateCheck.getMonth() && start.getFullYear() === startDateCheck.getFullYear()) {
                  if ((start <= startDateCheck && end <= endDateCheck) || (start <= startDateCheck && end >= endDateCheck)) {
                      console.log("vacations overlap!");
                      return ({message: "decline"});
@@ -59,7 +59,9 @@
                 }
             }
             console.log("cleared holidays check!");
-            return ({message: "approved!"});
+            return ({message: "approved!",
+            vacationLength: `${await datesDiffInDays(start_date, end_date)}`
+            });
 
     } catch (error) {
               throw error;
@@ -67,8 +69,8 @@
     }
 
 module.exports = {
-    validateVacationDays: validateVacationDays
-
+    validateVacationDays: validateVacationDays,
+    datesDiffInDays: datesDiffInDays
 };
 
 

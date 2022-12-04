@@ -18,6 +18,7 @@ vacationsRouter.put('/:vacationId' , vacationsController.UpdateVacationStatus);
 //localhost:4000/api/vacations/usersId
 vacationsRouter.post('/:id' , vacationsController.createNewVacation); //by using session req.params can be deleted.
 
+//localhost:4000/api/vacations/employee/employee (not sure if this is the right route)
 vacationsRouter.get('/employee/:employee_id' , vacationsController.getAllEmployeeVacations);
 
 module.exports = { vacationsRouter };
