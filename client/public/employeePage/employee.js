@@ -44,7 +44,7 @@ window.onload = async function employeeDisplay () {
 async function homeAddress(homeAddressVar) {
     try
     {
-        const response = await fetch(`http://localhost:4000/api/user/home_address?id=1&home_address=${homeAddressVar}`,{method:"put"})
+        const response = await fetch(`http://localhost:4000/api/user/homeAddress?id=1&homeAddress=${homeAddressVar}`,{method:"put"})
         return response.json();
     }
     catch(error)
@@ -68,7 +68,7 @@ addHomeAddressForm.addEventListener('submit',async() => {
 async function vacationRequest(vacationStartDate, vacationFinishDate) {
     try
     {
-        const response = await fetch(`http://localhost:4000/api/user/vacation_request?id=1&vacation_start_date=${vacationStartDate}&vacation_finish_date=${vacationFinishDate}`,{method:"post"})
+        const response = await fetch(`http://localhost:4000/api/user/vacationRequest?id=1&vacationStartDate=${vacationStartDate}&vacationFinishDate=${vacationFinishDate}`,{method:"post"})
         return response.json();
     }
     catch(error)

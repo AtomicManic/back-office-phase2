@@ -3,7 +3,7 @@ const path = require("path");
 const {
     getVacations,
     employeeInfo,
-    homeAddress,
+    updateHomeAddress,
     askVacation,
 } = require("./../controllers/employeeDashboard.controller");
 
@@ -15,11 +15,11 @@ router.get("/employeeInfo", (req, res) => {
     employeeInfo(req, res);
 });
 
-router.put("/home_address", (req, res) => {
-    homeAddress(req, res);
+router.put("/homeAddress", (req, res) => {
+    updateHomeAddress(req, res);
 });
 
-router.post("/vacation_request", (req, res) => {
+router.post("/vacationRequest", (req, res) => {
     askVacation(req, res);
 });
 

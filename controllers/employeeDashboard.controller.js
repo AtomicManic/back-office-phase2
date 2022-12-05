@@ -10,7 +10,7 @@ const _ = require("lodash");
 const {
     invalidId,
     missing_homeAddress,
-} = require("./handleControllerErrors");
+} = require("../handleErrors");
 
 
 findAllEmployees = (req, res) => {
@@ -30,23 +30,23 @@ employeeInfo = (req, res) => {
     res.end(JSON.stringify(data));
 };
 
-homeAddress = (req, res) => {
-    console.log(req.query.id, req.query.home_address);
+updateHomeAddress = (req, res) => {
+    console.log(req.query.id, req.query.homeAddress);
     if(!req.query.id)
         return invalidId(req, res);
-    if(!req.query.home_address)
+    if(!req.query.homeAddress)
         return missing_homeAddress(req, res);
-    const data = setHomeAddress(req.query.id, req.query.home_address);
+    const data = setHomeAddress(req.query.id, req.query.homeAddress);
     res.set('Content-Type', 'application/json');
     res.writeHeader(200);
     res.end(JSON.stringify(data));
 };
 
 askVacation = (req, res) => {
-    console.log(req.query.id, req.query.vacation_start_date, req.query.vacation_finish_date);
+    console.log(req.query.id, req.query.vacationStartDate, req.query.vacationFinishDate);
     if(!req.query.id)
         return invalidId(req, res);
-    const data = setVacationRequest(req.query.id, req.query.vacation_start_date, req.query.vacation_finish_date);
+    const data = setVacationRequest(req.query.id, req.query.vacationStartDate, req.query.vacationFinishDate);
     res.set('Content-Type', 'application/json');
     res.writeHeader(200);
     res.end(JSON.stringify(data));
@@ -55,7 +55,7 @@ askVacation = (req, res) => {
 module.exports = {
     // getVacations: getVacations,
     employeeInfo: employeeInfo,
-    homeAddress: homeAddress,
+    updateHomeAddress: updateHomeAddress,
     askVacation: askVacation,
 };
 

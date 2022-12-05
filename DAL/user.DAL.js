@@ -1,37 +1,42 @@
+const {
+    invalidId,
+    missing_homeAddress,
+} = require("../handleErrors");
+
 // get all employees -- need to move ot DAL
 getAllUsers = () => {
     return {1 : "Gilad", 2 : "Adva", 3: "Ofir", 4: "Dave"};
 };
 
 const getUserById = (id) => {
-    if(id == null)
-        return 'No valid id';
+    if(!id)
+        return invalidId;
     let users = getAllUsers();
     if (id in users) {
         return users[id];
     }
-    return ["This id doesn't exist"];
+    return invalidId;
     };
 
 const setHomeAddress = (id, home_address) => {
-    if(id == null)
-        return 'Missing id';
+    if(!id)
+        return invalidId;
     let users = getAllUsers();
     if (id in users) {
         return [`The home address of ${users[id]} changed to ${home_address}`];
     }
-    return ['Invalid id']
+    return invalidId;
 };
 
 // add check if there is active request
 const setVacationRequest = (id, startDate, finishDate) => {
-    if(id == null)
-        return 'Missing id';
+    if(!id)
+        return invalidId;
     let users = getAllUsers();
     if (id in users) {
         return [`${users[id]} sent vacation request`];
     }
-    return ['Invalid id']
+    return invalidId;
 };
 
 module.exports = {
