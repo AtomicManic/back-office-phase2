@@ -7,59 +7,78 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
   />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="employee.css" />
+  <link rel="stylesheet" href="employee.style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <title>Employee Page</title>
+  <title>employeeCRUD</title>
 </head>
-
 <body>
-  <header>
-    <h1>Employee Page</h1>
-  </header>
-  <div id="messages"></div>
-  <div class="EmployeesContainer">
-    <h2>
-      General Info
-    </h2>
-    <table>
-      <thead>
-      <tr>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Vacation Days</th>
-      </tr>
-      </thead>
-      <tbody id="tbody">
-      </tbody>
-    </table>
+<header>
+  <h1>Manager Page</h1>
+</header>
+<div class="EmployeesContainer">
+  <h2>Add Employee</h2>
+  <div>
+    <form id="addEmployeeForm" method="get">
+      <label for="emailInputCRUD">Email:</label>
+      <input type="text" name="email" id="emailInputCRUD" />
+      <label for="firstNameInputCRUD">First Name:</label>
+      <input type="text" name="firstName" id="firstNameInputCRUD" />
+      <label for="lastNameInputCRUD">Last Name:</label>
+      <input type="text" name="lastName" id="lastNameInputCRUD" />
+      <label for="ageInputCRUD">Age:</label>
+      <input type="number" name="age" id="ageInputCRUD" />
+      <label for="genderMaleCRUD">male</label>
+      <input type="checkbox" name="genderMale" id="genderMaleCRUD" value="male"/>
+      <label for="genderFemaleCRUD">male</label>
+      <input type="checkbox" name="genderFemale" id="genderFemaleCRUD" value="male"/>
+      <button type="submit" id="addEmployeeBtn">Add Employee</button>
+    </form>
   </div>
+</div>
+<div class="EmployeesContainer">
+  <h2>
+    Employee List
+  </h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Vacation Days</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+  </table>
+</div>
 
-  <div class="EmployeesContainer">
-    <h2>Add Home Address</h2>
-    <div>
-      <form id="addHomeAddressForm" method="put">
-        <label for="addHomeAddress">Home Address:</label>
-        <input type="text" name="homeAddressAdd" id="addHomeAddress" />
-        <button type="submit" id="addHomeAddressBtn">Add</button>
-      </form>
-    </div>
+<div class="EmployeesContainerDelete">
+  <h2>Delete Employee</h2>
+  <div>
+    <form id="deleteEmployeeForm" method="put">
+      <label for="deleteInputCRUD">email:</label>
+      <input type="text" name="deleteByEmail" id="deleteInputCRUD" />
+      <button type="submit" id="deleteEmployeeBtn">Delete Employee</button>
+    </form>
   </div>
+</div>
 
-  <div class="EmployeesContainer">
-    <h2>Request Vacation</h2>
-    <div>
-      <form id="vacationRequestForm" method="post">
-        <label for="vacationRequestFrom">from:</label>
-        <input type="date" name="requestVacationStart" id="vacationRequestFrom" required />
-        <label for="vacationRequestTo">to:</label>
-        <input type="date" name="requestVacationEnd" id="vacationRequestTo" required />
-        <button type="submit" id="vacationRequestBtn">Send</button>
-      </form>
-    </div>
+<div class="EmployeesContainer">
+  <h2>Change Password</h2>
+  <div>
+    <form id="editEmployeeForm" method="get">
+      <h3>Enter the email of the user you want to change password to:</h3>
+      <label for="editInputCRUD">email:</label>
+      <input type="text" name="editEmail" id="editInputCRUD" />
+      <label for="passwordEditInputCRUD">Password:</label>
+      <input type="password" name="editPassword" id="passwordEditInputCRUD" />
+      <button type="submit" id="editEmployeeBtn">Change Password</button>
+    </form>
   </div>
+</div>
 
-  <script src="employee.js"></script>
+<script src="employee.js"></script>
 </body>
 </html>

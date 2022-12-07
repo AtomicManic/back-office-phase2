@@ -88,3 +88,82 @@ vacationRequestForm.addEventListener('submit',async() => {
         window.alert("error occurs sending vacation request");
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+const employeeForm = document.getElementById("addEmployeeForm");
+const deleteEmployeeForm = document.getElementById("deleteEmployeeForm")
+const editEmployeeForm = document.getElementById("editEmployeeForm")
+const emailInputCRUD = document.getElementById("emailInputCRUD");
+const passInputCRUD = document.getElementById("passwordInputCRUD");
+const nameInputCRUD = document.getElementById("nameInputCRUD");
+const vacationDaysInputCRUD = document.getElementById("vacationDaysInputCRUD");
+
+
+let tbody=document.getElementById("tbody");
+
+//fetch users function
+const display = async() => {
+    try
+    {
+        const response = await fetch("http://localhost:8081/api/display", {method: "GET"})
+        return response.json();
+    }
+    catch(error)
+    {
+        throw error;
+    }
+}
+
+
+//display users function
+window.onload = async function employeeDisplay () {
+    const displayVar = await display();
+    let users = displayVar["users"];
+    let td = document.createElement('tr')
+    for (var k in users) {
+        td = document.createElement('tr')
+        td.innerHTML = `
+                        <td>${users[k].email}</td>
+                        <td>${users[k].name}</td>
+                        <td>${users[k].role}</td>
+                        <td>${users[k].vacationDaysLeft}</td>`
+        tbody.append(td);
+    }
+    return td;
+}
+
+//add employee function
+employeeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = addEmployeeForm.email.value;
+    const password = addEmployeeForm.password.value;
+    const name = addEmployeeForm.name.value;
+    const vacationDays = addEmployeeForm.vacationDays.value;
+    console.log(name);
+    console.log(vacationDays);
+    fetch(`http://localhost:8081/api/add?email=${email}&password=${password}&name=${name}&vacationDaysLeft=${vacationDays}`,{method:"post"})
+});
+
+deleteEmployeeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = deleteEmployeeForm.deleteByEmail.value;
+    console.log(email);
+    fetch(`http://localhost:8081/api/delete?email=${email}`, {method: "put"})
+});
+
+editEmployeeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = editEmployeeForm.editEmail.value;
+    const password = editEmployeeForm.editPassword.value;
+    console.log(email);
+    fetch(`http://localhost:8081/api/edit?email=${email}&password=${password}`, {method: "put"})
+});

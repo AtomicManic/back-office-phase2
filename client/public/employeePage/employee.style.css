@@ -24,7 +24,21 @@ h1 {
     justify-content: center;
     margin-top: 100px;
     width: 500px;
-    height: 400px;
+    height: 500px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.EmployeesContainerDelete {
+    background-color: #e8eddf;
+    color: #333533;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 100px;
+    width: 500px;
+    height: 200px;
     border-radius: 20px;
     padding: 20px;
 }
@@ -32,7 +46,7 @@ h1 {
 h2 {
     margin-bottom: 15px;
     font-size: 35px;
-    font-weight: 500;
+    font-weight: 500px;
     margin-left: 15px;
     margin-top: 25px;
 }
@@ -84,17 +98,4 @@ td {
 h3 {
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-.messeges {
-    color: #333533;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 100px;
-    width: 200px;
-    height: 400px;
-    border-radius: 20px;
-    padding: 20px;
 }

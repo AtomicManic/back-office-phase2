@@ -2,21 +2,24 @@ const {
     invalidId,
     missing_homeAddress,
 } = require("../handleErrors");
+const DB = require("../modules/user.module")
 
-// get all employees -- need to move ot DAL
-getAllUsers = () => {
-    return {1 : "Gilad", 2 : "Adva", 3: "Ofir", 4: "Dave"};
-};
-
-const getUserById = (id) => {
+function getUserById(id){
     if(!id)
         return invalidId;
-    let users = getAllUsers();
-    if (id in users) {
-        return users[id];
+    DB.userModel.findOne({id: id}.lean,async function(error, data){
+        if (error)
+        {
+            console.log(`Error getting the data from db: ${error}`)
+        }
+        else
+        {
+            data = JSON.stringify(data);
+            console.log(typeof data)
+            return data;
+        }
+    });
     }
-    return invalidId;
-    };
 
 const setHomeAddress = (id, home_address) => {
     if(!id)
@@ -43,5 +46,4 @@ module.exports = {
     setHomeAddress: setHomeAddress,
     setVacationRequest: setVacationRequest,
     getUserById: getUserById,
-    getAllUsers: getAllUsers,
 };
