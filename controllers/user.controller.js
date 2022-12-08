@@ -7,7 +7,7 @@ const {
 function userInfo(req, res){
     if(!req.query.id)
         return invalidId(req, res);
-    DB.userModel.findOne({id: req.query.id}.lean,function(error, data) {
+    DB.userModel.findOne({id: req.query.id},function(error, data) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
         } else {

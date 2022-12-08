@@ -7,8 +7,11 @@ const adminRoutes = require("./routes/adminRoutes");
 const userRoutes = require("./routes/userRoutes");
 require('./db_connection');
 const DB = require('./modules/user.module');
+const url = require("url");
+const open = require('open');
+open('./client/public/firstPage/firstPage.html');
 
-// DB.userModel.find({}, function(err, docs){console.log(docs)});
+
 
 // Configurations //
 const PORT = process.env.PORT || 4000;
