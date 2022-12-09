@@ -5,6 +5,21 @@ const {
     invalidInput,
 } = require("../handleErrors");
 
+function checkRole(req, res){
+    if(!req.query.id)
+        return invalidId(req, res);
+    DB.roleModel.findOne({user_id: req.query.id},function(error, data) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        } else {
+            data = JSON.stringify(data);
+        }
+        res.set('Content-Type', 'application/json');
+        res.writeHeader(200);
+        res.end(data);
+    })
+};
+
 function userInfo(req, res){
     if(!req.query.id)
         return invalidId(req, res);
@@ -21,7 +36,33 @@ function userInfo(req, res){
 };
 
 function getUsers(req, res){
-    DB.userModel.find({}.lean,function(error, data) {
+    DB.userModel.find({},function(error, data) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        } else {
+            data = JSON.stringify(data);
+        }
+        res.set('Content-Type', 'application/json');
+        res.writeHeader(200);
+        res.end(data);
+    })
+};
+
+function userStatus(req, res){
+    DB.statusModel.find({},function(error, data) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        } else {
+            data = JSON.stringify(data);
+        }
+        res.set('Content-Type', 'application/json');
+        res.writeHeader(200);
+        res.end(data);
+    })
+};
+
+function usersRole(req, res){
+    DB.roleModel.find({},function(error, data) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
         } else {
@@ -39,11 +80,10 @@ function updateStatus(req, res){
     console.log(req.query.id);
     if(req.query.status !== "active" && req.query.status !== "disable")
         return invalidStatus(req, res);
-        DB.statusModel.findOne({id: req.query.id},function(error, doc) {
+    DB.statusModel.findOne({user_id: req.query.id},function(error, doc) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
         } else {
-            console.log(doc)
             if (req.query.status === 'active')
             {
                 doc.status = 'active';
@@ -51,6 +91,7 @@ function updateStatus(req, res){
             }
             if (req.query.status === 'disable')
             {
+                console.log(doc, doc.status);
                 doc.status = 'disable';
                 doc.save();
             }
@@ -113,15 +154,28 @@ function updateUser(req, res){
 };
 
 function createUser(req, res){
-    if(!req.query.email || !req.query.address || !req.query.age || !req.query.firstName || !req.query.lastName || !req.query.lastName)
+    if(!req.query.email || !req.query.address || !req.query.age || !req.query.firstName || !req.query.lastName || !req.query.gender ||!req.query.role)
         return invalidInput(req, res);
-    DB.userModel.create({id: Math.floor(Math.random() * 1000),email: req.query.email, address: req.query.address, age: req.query.age,
+    const userId = Math.floor(Math.random() * 1000);
+
+    DB.userModel.create({id: userId, email: req.query.email, address: req.query.address, age: req.query.age,
         firstName: req.query.firstName, lastName: req.query.lastName, gender: req.query.gender, createdAt: new Date(Date.now()),
         updatedAt: new Date(Date.now())},function(error, doc) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
-        } else {
-            doc.save();
+        }
+    })
+    DB.roleModel.create({user_id: userId, role: req.query.role},function(error, doc) {
+            if (error) {
+                console.log(`Error getting the data from db: ${error}`)
+            }})
+
+    DB.statusModel.create({user_id: userId, status: 'active'},function(error, doc) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        }
+        else{
+            doc.save()
         }
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
@@ -153,5 +207,8 @@ module.exports = {
     updateUser: updateUser,
     createUser: createUser,
     deleteUser: deleteUser,
+    checkRole: checkRole,
+    userStatus: userStatus,
+    usersRole: usersRole,
 };
 

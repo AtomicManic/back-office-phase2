@@ -19,6 +19,21 @@ function userInfo(req, res){
     })
 };
 
+function checkRole(req, res){
+    if(!req.query.id)
+        return invalidId(req, res);
+    DB.roleModel.findOne({user_id: req.query.id},function(error, data) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        } else {
+            data = JSON.stringify(data);
+        }
+        res.set('Content-Type', 'application/json');
+        res.writeHeader(200);
+        res.end(data);
+    })
+};
+
 function updateUser(req, res){
     if(!req.query.id)
         return invalidId(req, res);
@@ -91,4 +106,5 @@ module.exports = {
     userInfo: userInfo,
     updateUser: updateUser,
     deleteUser: deleteUser,
+    checkRole: checkRole,
 };

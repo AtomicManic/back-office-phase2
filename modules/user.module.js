@@ -9,7 +9,6 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     address: {
         type: String,
@@ -26,7 +25,10 @@ const userSchema = new Schema({
     lastName: {
         type: String,
         required: true,
-        unique: true,
+    },
+    gender: {
+        type: String,
+        required: true,
     },
     createdAt: {
         type: Date,
