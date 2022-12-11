@@ -76,7 +76,6 @@ window.onload = async function userDisplay () {
     let displayVar = await display();
     let displayStatusVar = await displayStatus();
     let displayRoleVar = await displayRole();
-    console.log(displayStatusVar);
     let usersCount = 0;
     while(usersCount < displayVar.length) {
         td = document.createElement('tr')
@@ -87,7 +86,6 @@ window.onload = async function userDisplay () {
                             <td>${displayRoleVar[usersCount]["role"]}</td>
                             <td>${displayVar[usersCount]["address"]}</td>
                             <td>${displayStatusVar[usersCount]["status"]}</td>`
-
         usersCount++;
         tbody.append(td);
     }

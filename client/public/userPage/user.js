@@ -10,11 +10,25 @@ if(!params.id)
     window.location.replace('../firstPage/firstPage.html');
 
 //fetch user role function
-const checkUser = async() => {
+const checkUserRole = async() => {
     try
     {
         console.log(queryIdValue);
         const response = await fetch(`http://localhost:4000/api/user/checkRole?id=${queryIdValue}`, {method: "get"})
+        return response.json();
+    }
+    catch(error)
+    {
+        throw error;
+    }
+}
+
+//fetch user role function
+const checkUserStatus = async() => {
+    try
+    {
+        console.log(queryIdValue);
+        const response = await fetch(`http://localhost:4000/api/user/checkStatus?id=${queryIdValue}`, {method: "get"})
         return response.json();
     }
     catch(error)
@@ -39,11 +53,16 @@ const display = async() => {
 
 //display user if authorized function
 window.onload = async function userDisplay () {
-    let check = await checkUser();
-    console.log(check)
-    if(check["role"] !== "user")
+    let checkRole = await checkUserRole();
+    if(checkRole["role"] !== "user")
     {
         window.alert("This id does not belong to user")
+        window.location.replace('../firstPage/firstPage.html')
+    }
+    let checkStatus = await checkUserStatus();
+    if(checkStatus["status"] !== "active")
+    {
+        window.alert("This account has been disabled")
         window.location.replace('../firstPage/firstPage.html')
     }
     let displayVar = await display();

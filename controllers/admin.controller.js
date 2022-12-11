@@ -86,11 +86,13 @@ function updateStatus(req, res){
             if (req.query.status === 'active')
             {
                 doc.status = 'active';
+                updateAt(req.query.id)
                 doc.save();
             }
             if (req.query.status === 'disable')
             {
                 doc.status = 'disable';
+                updateAt(req.query.id)
                 doc.save();
             }
         }
@@ -146,6 +148,23 @@ function updateUser(req, res){
     })
 };
 
+function updateAt(id){
+    if(!id)
+        return invalidId(id);
+    DB.userModel.findOne({id: id},function(error, doc)
+    {
+        if (error)
+            {
+                console.log(`Error getting the data from db: ${error}`)
+            }
+        else
+            {
+                doc.updatedAt = new Date(Date.now());
+            }
+        doc.save();
+    })
+};
+
 function createUser(req, res){
     if(!req.query.email || !req.query.address || !req.query.age || !req.query.firstName || !req.query.lastName || !req.query.gender ||!req.query.role)
         return invalidInput(req, res);
@@ -182,18 +201,22 @@ function deleteUser(req, res){
     DB.userModel.findOneAndDelete({id: req.query.id},function(error, doc) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
-        } else {
-            doc.save();
-        }
+        }})
+        DB.roleModel.findOneAndDelete({user_id: req.query.id},function(error, doc) {
+            if (error) {
+                console.log(`Error getting the data from db: ${error}`)
+            }})
+            DB.statusModel.findOneAndDelete({user_id: req.query.id},function(error, doc) {
+                if (error) {
+                    console.log(`Error getting the data from db: ${error}`)
+                }})
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
         res.end("success");
-    })
 };
 
 
 module.exports = {
-    // getVacations: getVacations,
     userInfo: userInfo,
     getUsers: getUsers,
     updateStatus: updateStatus,

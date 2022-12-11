@@ -34,6 +34,21 @@ function checkRole(req, res){
     })
 };
 
+function checkStatus(req, res){
+    if(!req.query.id)
+        return invalidId(req, res);
+    DB.statusModel.findOne({user_id: req.query.id},function(error, data) {
+        if (error) {
+            console.log(`Error getting the data from db: ${error}`)
+        } else {
+            data = JSON.stringify(data);
+        }
+        res.set('Content-Type', 'application/json');
+        res.writeHeader(200);
+        res.end(data);
+    })
+};
+
 function updateUser(req, res){
     if(!req.query.id)
         return invalidId(req, res);
@@ -91,13 +106,18 @@ function deleteUser(req, res){
     DB.userModel.findOneAndDelete({id: req.query.id},function(error, doc) {
         if (error) {
             console.log(`Error getting the data from db: ${error}`)
-        } else {
-            doc.save();
-        }
-        res.set('Content-Type', 'application/json');
+        }})
+        DB.roleModel.findOneAndDelete({id: req.query.id},function(error, doc) {
+            if (error) {
+                console.log(`Error getting the data from db: ${error}`)
+            }})
+            DB.statusModel.findOneAndDelete({id: req.query.id},function(error, doc) {
+                if (error) {
+                    console.log(`Error getting the data from db: ${error}`)
+                }})
+                res.set('Content-Type', 'application/json');
         res.writeHeader(200);
         res.end("success");
-    })
 };
 
 
@@ -107,4 +127,5 @@ module.exports = {
     updateUser: updateUser,
     deleteUser: deleteUser,
     checkRole: checkRole,
+    checkStatus: checkStatus,
 };

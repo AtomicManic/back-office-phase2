@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const path = require("path");
+// const path = require("path");
 const {
     userInfo,
     getUsers,
@@ -10,7 +10,6 @@ const {
     checkRole,
     userStatus,
     usersRole,
-    askVacation,
 } = require("../controllers/admin.controller");
 
 router.get("/userInfo", (req, res) => {
@@ -42,7 +41,6 @@ router.post("/createUser", (req, res) => {
 });
 
 router.delete("/deleteUser", (req, res) => {
-    console.log("1");
     deleteUser(req, res);
 });
 
