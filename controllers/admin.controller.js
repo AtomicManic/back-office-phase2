@@ -77,7 +77,6 @@ function usersRole(req, res){
 function updateStatus(req, res){
     if(!req.query.id)
         return invalidId(req, res);
-    console.log(req.query.id);
     if(req.query.status !== "active" && req.query.status !== "disable")
         return invalidStatus(req, res);
     DB.statusModel.findOne({user_id: req.query.id},function(error, doc) {
@@ -91,7 +90,6 @@ function updateStatus(req, res){
             }
             if (req.query.status === 'disable')
             {
-                console.log(doc, doc.status);
                 doc.status = 'disable';
                 doc.save();
             }
@@ -114,40 +112,35 @@ function updateUser(req, res){
             {
                 doc.email = req.query.email;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
             if (req.query.address)
             {
                 doc.address = req.query.address;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
             if (req.query.age)
             {
                 doc.age = req.query.age;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
             if (req.query.firstName)
             {
                 doc.firstName = req.query.firstName;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
             if (req.query.lastName)
             {
                 doc.lastName = req.query.lastName;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
             if (req.query.gender)
             {
                 doc.gender = req.query.gender;
                 doc.updatedAt = new Date(Date.now());
-                doc.save();
             }
         }
-        res.set('Content-Type', 'application/json');
+         doc.save();
+         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
         res.end("success");
     })
