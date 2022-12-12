@@ -59,7 +59,7 @@
         <option value="user">user</option>
         <option value="admin">admin</option>
       </select>
-      <button type="submit" id="addUserBtn">Add User</button>
+      <button type="submit" id="addUserBtn">Add</button>
     </form>
   </div>
 </div>
@@ -69,12 +69,11 @@
     <form id="deleteUserForm" method="put">
       <label for="deleteInputCRUD">User Id:</label>
       <input type="number" required name="deleteById" id="deleteInputCRUD" />
-      <button type="submit" id="deleteEmployeeBtn">Delete User</button>
+      <button type="submit" id="deleteEmployeeBtn">Delete</button>
     </form>
   </div>
 </div>
-
-<div class="EmployeesContainer">
+<div class="EmployeesContainerDelete">
   <h2>Change User Status</h2>
   <div>
     <form id="editUserForm" method="get">
@@ -85,7 +84,20 @@
         <option value="active">active</option>
         <option value="disable">disable</option>
       </select>
-      <button type="submit" id="editEmployeeBtn">Change Status</button>
+      <button type="submit" id="editEmployeeBtn">Update</button>
+    </form>
+  </div>
+</div>
+<div class="EmployeesContainerDelete">
+  <h2>Change all users status</h2>
+  <div>
+    <form id="updateAllUsersStatusForm" method="put">
+      <label for="usersStatus">Status:</label>
+      <select id="usersStatus" name="status">
+        <option value="active">active</option>
+        <option value="disable">disable</option>
+      </select>
+      <button type="submit" id="updateAllUsersStatusBtn">Update</button>
     </form>
   </div>
 </div>

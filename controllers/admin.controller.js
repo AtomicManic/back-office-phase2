@@ -98,7 +98,7 @@ function updateStatus(req, res){
         }
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
-        res.end("success");
+        res.end('{"result": "success"}');
     })
 };
 
@@ -143,8 +143,8 @@ function updateUser(req, res){
         }
          doc.save();
          res.set('Content-Type', 'application/json');
-        res.writeHeader(200);
-        res.end("success");
+         res.writeHeader(200);
+         res.end('{"result": "success"}');
     })
 };
 
@@ -191,7 +191,7 @@ function createUser(req, res){
         }
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
-        res.end("success");
+        res.end('{"result": "success"}');
     })
 };
 
@@ -212,9 +212,59 @@ function deleteUser(req, res){
                 }})
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
-        res.end("success");
+        res.end('{"result": "success"}');
 };
 
+function updateAllUsersStatus(req, res){
+    if(req.query.status !== "active" && req.query.status !== "disable")
+        return invalidStatus(req, res);
+    let adminId = [];
+    DB.roleModel.find({role: 'admin'},function(error, doc)
+    {
+        if (error)
+        {
+            console.log(`Error getting the data from db: ${error}`)
+        }
+        else
+        {
+            for(let i=0; i<doc.length; i++)
+                adminId.push(doc[i]);
+            DB.statusModel.find({},function(error, doc)
+            {
+                if (error)
+                {
+                    console.log(`Error getting the data from db: ${error}`)
+                }
+                else
+                {
+                    for(let i=0; i<doc.length; i++)
+                    {
+                        if (req.query.status === 'active')
+                        {
+                            if(!(i in adminId))
+                            {
+                                doc[i].status = 'active';
+                                updateAt(doc[i].user_id);
+                            }
+                        }
+                        if (req.query.status === 'disable')
+                        {
+                            if(!(i in adminId))
+                            {
+                                doc[i].status = 'disable';
+                                updateAt(doc[i].user_id);
+                            }
+                        }
+                        doc[i].save();
+                    }
+                }
+                res.set('Content-Type', 'application/json');
+                res.writeHeader(200);
+                res.end('{"result": "success"}');
+            })
+        }
+    })
+};
 
 module.exports = {
     userInfo: userInfo,
@@ -226,5 +276,6 @@ module.exports = {
     checkRole: checkRole,
     userStatus: userStatus,
     usersRole: usersRole,
+    updateAllUsersStatus: updateAllUsersStatus,
 };
 

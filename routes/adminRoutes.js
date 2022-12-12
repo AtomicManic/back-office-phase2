@@ -10,6 +10,7 @@ const {
     checkRole,
     userStatus,
     usersRole,
+    updateAllUsersStatus,
 } = require("../controllers/admin.controller");
 
 router.get("/userInfo", (req, res) => {
@@ -28,12 +29,20 @@ router.get("/getUsers", (req, res) => {
     getUsers(req, res);
 });
 
+router.get("/checkRole", (req, res) => {
+    checkRole(req, res);
+});
+
 router.put("/updateStatus", (req, res) => {
     updateStatus(req, res);
 });
 
 router.put("/updateUser", (req, res) => {
     updateUser(req, res);
+});
+
+router.put("/updateAllUsersStatus", (req, res) => {
+    updateAllUsersStatus(req, res);
 });
 
 router.post("/createUser", (req, res) => {
@@ -44,8 +53,5 @@ router.delete("/deleteUser", (req, res) => {
     deleteUser(req, res);
 });
 
-router.get("/checkRole", (req, res) => {
-    checkRole(req, res);
-});
 
 module.exports = router;

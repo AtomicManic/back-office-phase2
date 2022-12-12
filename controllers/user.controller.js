@@ -96,7 +96,7 @@ function updateUser(req, res){
         }
         res.set('Content-Type', 'application/json');
         res.writeHeader(200);
-        res.end("success");
+        res.end('{"result": "success"}');
     })
 };
 
@@ -117,7 +117,7 @@ function deleteUser(req, res){
                 }})
                 res.set('Content-Type', 'application/json');
         res.writeHeader(200);
-        res.end("success");
+        res.end('{"result": "success"}');
 };
 
 
